@@ -25,6 +25,13 @@ module.exports = {
         compress: true,
         open: true,
         port: 4444,
+        allowedHosts: ['all'],
+        client: {
+            overlay: {
+                warnings: false
+            },
+            logging: 'none',
+        },
         static: {
             directory: path.resolve(__dirname, 'src')
         }
@@ -32,10 +39,12 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
-            '@': path.resolve(__dirname, 'src'),
             '@components': path.resolve(__dirname, 'src/components'),
             '@assets': path.resolve(__dirname, 'src/assets'),
             '@my-types': path.resolve(__dirname, 'src/types'),
+            '@hooks': path.resolve(__dirname, 'src/hooks'),
+            '@slices': path.resolve(__dirname, 'src/slices'),
+            '@': path.resolve(__dirname, 'src'),
         }
     },
     optimization: {

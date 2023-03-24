@@ -1,20 +1,17 @@
 import React from "react"
 import '@/App.css'
-import { ITodo } from "@my-types/index"
 import Todo from "@components/Todo"
+import { useAppSelector } from "@/hooks/useRedux"
 
 
-interface TodoListProps {
-    todos: ITodo[]
-    setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>
-}
+const TodoList: React.FC= () => {
 
-const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
+    const todos = useAppSelector(state => state.todos.todos)
 
     return (
         <div id="todos">
             {todos.map((todo) => (
-                <Todo setTodos={setTodos} todo={todo} key={todo.id}  />
+                <Todo todo={todo} key={todo.id}  />
             ))}
         </div>
     )

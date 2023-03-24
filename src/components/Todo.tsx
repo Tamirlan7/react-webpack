@@ -2,18 +2,31 @@ import React from "react"
 import '@/App.css'
 import { ITodo } from "@my-types/index"
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
+import { useAppDispatch } from "@hooks/useRedux"
+import { completeTodoAction, deleteTodoAction } from "@slices/todoSlice"
 
 
 interface TodoProps {
     todo: ITodo
-    setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>
 }
 
-const Todo: React.FC<TodoProps> = ({ todo, setTodos }) => {
+const Todo: React.FC<TodoProps> = ({ todo }) => {
+    const dispatch = useAppDispatch()
+
     const [isBody, setIsBody] = React.useState<boolean>(false)
     const [isHover, setIsHover] = React.useState<boolean>(false)
 
     const todoBodyRef = React.useRef<HTMLDivElement>(null)
+
+    function completeTodo(todo: ITodo, e: React.MouseEvent<HTMLButtonElement>): void {
+        e.stopPropagation()
+        dispatch(completeTodoAction(todo))
+    }
+
+    function deleteTodo(todo: ITodo, e: React.MouseEvent<HTMLButtonElement>): void {
+        e.stopPropagation()
+        dispatch(deleteTodoAction(todo))
+    }
 
     function doHover() {
         setIsHover(true)
@@ -21,29 +34,6 @@ const Todo: React.FC<TodoProps> = ({ todo, setTodos }) => {
 
     function undoHover() {
         setIsHover(false)
-    }
-
-    function completeTodo(todo: ITodo, e: React.MouseEvent<HTMLButtonElement>): void {
-        e.stopPropagation()
-
-        setTodos((prev) =>
-            prev.map((currTodo) => {
-                if(currTodo.id === todo.id) {
-                    currTodo.completed = true
-                }
-
-                return currTodo
-            })
-        )
-
-    }
-
-    function deleteTodo(todo: ITodo, e: React.MouseEvent<HTMLButtonElement>): void {
-        e.stopPropagation()
-
-        setTodos((prev) =>
-            prev.filter((currTodo) => todo.id !== currTodo.id)
-        )
     }
 
     function toggleTodoBody(): void {

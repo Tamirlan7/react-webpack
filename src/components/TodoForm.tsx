@@ -2,13 +2,13 @@ import React from "react"
 import '@/App.css'
 import { ITodo } from "@my-types/index"
 import todoImg from '@assets/todo.jpg'
+import { useAppDispatch } from "@/hooks/useRedux"
+import { addTodoAction } from "@slices/todoSlice"
 
 
-interface TodoFormProps {
-    createTodo: (todo: ITodo) => void
-}
+const TodoForm: React.FC = () => {
 
-const TodoForm: React.FC<TodoFormProps> = ({ createTodo }) => {
+    const dispatch = useAppDispatch()
 
     const [todo, setTodo] = React.useState<ITodo>({
         id: 0,
@@ -25,7 +25,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ createTodo }) => {
     function onSubmit(e: React.FormEvent) {
         e.preventDefault()
         const newTodo: ITodo = {...todo, id: Date.now()}
-        createTodo(newTodo)
+        dispatch(addTodoAction(newTodo))
     }
 
     return (
