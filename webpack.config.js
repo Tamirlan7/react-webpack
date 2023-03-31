@@ -5,7 +5,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 
-
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
@@ -70,7 +69,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(ts)x?$/,
+                test: /\.(js|ts)x?$/,
                 exclude: path.resolve(__dirname, 'node_modules'),
                 use: {
                     loader: 'babel-loader',

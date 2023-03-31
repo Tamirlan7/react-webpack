@@ -1,8 +1,8 @@
 import React from "react"
-import '@/App.css'
+import '../App.css'
 import { ITodo } from "@my-types/index"
 import todoImg from '@assets/todo.jpg'
-import { useAppDispatch } from "@/hooks/useRedux"
+import { useAppDispatch } from "@hooks/useRedux"
 import { addTodoAction } from "@slices/todoSlice"
 
 
